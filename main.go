@@ -46,8 +46,9 @@ func spam(endpoint string, duration int64, step bool) {
 	var client = collectorProtobuf.NewLogsServiceClient(conn)
 
 	var endTime = time.Now().Add(time.Duration(duration * 1000_000_000))
+	fmt.Printf("end = %v\n", endTime)
 
-	for now := time.Now(); now.Before(endTime); {
+	for now := time.Now(); now.Before(endTime); now = time.Now() {
 		var logRecord = &logsProtobuf.LogRecord{
 			TimeUnixNano:         uint64(now.UnixNano()),
 			ObservedTimeUnixNano: uint64(now.UnixNano()),
